@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<body>
+<nav th:fragment="navbar-user" style="background-color: #333; color: white; padding: 10px; display: flex; justify-content: space-around; align-items: center;">
+    <ul style="list-style-type: none; margin: 0; padding: 0; display: flex; gap: 20px;">
+
+        <li><a th:href="@{/heroes}" style="color: white; text-decoration: none;">Ver Héroes</a></li>
+        <li><a th:href="@{/intenciones}" style="color: white; text-decoration: none;">Registrar Petición</a></li>
+        <li><a th:href="@{/juego/cancion}" style="color: white; text-decoration: none;">Adivina la Canción</a></li>
+        <li><a th:href="@{/juego/cancion/ranking}" style="color: white; text-decoration: none;">Ranking</a></li>
+    </ul>
+
+    <form th:action="@{/logout}" method="post" style="margin: 0;">
+        <button type="submit" style="background-color: #e74c3c; color: white; border: none; padding: 8px 12px; cursor: pointer;">Cerrar Sesión (Usuario)</button>
+    </form>
+
+</nav>
+</body>
+</html>

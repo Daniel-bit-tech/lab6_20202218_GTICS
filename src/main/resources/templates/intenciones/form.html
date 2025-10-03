@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Registrar Petición</title>
+</head>
+<body>
+<div sec:authorize="hasRole('USUARIO')" th:replace="~{fragments/navbar-user :: navbar-user}"></div>
+
+<h1>Registrar Petición</h1>
+<div th:if="${error}" style="color:red;">
+    <p th:text="${error}"></p>
+</div>
+<div th:if="${exito}" style="color:green;">
+    <p th:text="${exito}"></p>
+</div>
+<form th:action="@{/intenciones/save}" th:object="${intencion}" method="post">
+    <div>
+        <label>Descripción:</label>
+        <textarea th:field="*{descripcion}"></textarea>
+        <div th:if="${#fields.hasErrors('descripcion')}" th:errors="*{descripcion}" style="color:red;"></div>
+    </div>
+    <button type="submit">Enviar Petición</button>
+</form>
+</body>
+</html>

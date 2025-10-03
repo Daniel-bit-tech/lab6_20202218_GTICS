@@ -28,8 +28,7 @@ public class Usuario {
     @JoinColumn(name = "rol_id", nullable = false)
     private Rol rol;
 
-    @Column(nullable = false)
-    private Boolean activo = true;
+
 
     public Long getId() {
         return id;
@@ -51,8 +50,5 @@ public class Usuario {
         return rol;
     }
 
-    public Boolean getActivo() {
-        return activo;
-    }
 
 }

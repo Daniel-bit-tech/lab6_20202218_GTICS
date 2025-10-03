@@ -3,6 +3,9 @@ package com.example.lab06_20202218.Entity;
 
 import jakarta.persistence.*;
 
+import java.time.LocalDate;
+
+
 @Entity
 @Table(name="heroes_navales")
 public class Heroes_navales {
@@ -14,35 +17,27 @@ public class Heroes_navales {
     private String descripcion;
     private String pais;
 
-    public Integer getId() {
-        return id;
-    }
+    private String rango;
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+    @Column(name = "fecha_nacimiento")
+    private java.sql.Date fechaNacimiento;
 
-    public String getNombre() {
-        return nombre;
-    }
+    // getters y setters
+    public Integer getId() { return id; }
+    public void setId(Integer id) { this.id = id; }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
+    public String getNombre() { return nombre; }
+    public void setNombre(String nombre) { this.nombre = nombre; }
 
-    public String getDescripcion() {
-        return descripcion;
-    }
+    public String getDescripcion() { return descripcion; }
+    public void setDescripcion(String descripcion) { this.descripcion = descripcion; }
 
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
+    public String getPais() { return pais; }
+    public void setPais(String pais) { this.pais = pais; }
 
-    public String getPais() {
-        return pais;
-    }
+    public String getRango() { return rango; }
+    public void setRango(String rango) { this.rango = rango; }
 
-    public void setPais(String pais) {
-        this.pais = pais;
-    }
+    public java.sql.Date getFechaNacimiento() { return fechaNacimiento; }
+    public void setFechaNacimiento(java.sql.Date fechaNacimiento) { this.fechaNacimiento = fechaNacimiento; }
 }

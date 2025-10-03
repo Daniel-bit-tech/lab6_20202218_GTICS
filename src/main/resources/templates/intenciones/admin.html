@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Intenciones Registradas</title>
+</head>
+<body>
+<div sec:authorize="hasRole('ADMIN')" th:replace="~{fragments/navbar-admin :: navbar-admin}"></div>
+
+<h1>Intenciones de Usuarios</h1>
+<table>
+    <thead>
+    <tr>
+        <th>Usuario</th>
+        <th>Descripción</th>
+        <th>Fecha</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="intencion : ${intenciones}">
+        <td th:text="${intencion.usuario.nombre}"></td>
+        <td th:text="${intencion.descripcion}"></td>
+        <td th:text="${#temporals.format(intencion.fecha, 'dd-MM-yyyy HH:mm')}"></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

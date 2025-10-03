@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+  <meta charset="UTF-8">
+  <title>Juego de la Canción</title>
+</head>
+<body>
+<div sec:authorize="hasRole('USUARIO')" th:replace="~{fragments/navbar-user :: navbar-user}"></div>
+
+<h1>Adivina la Canción</h1>
+<p>Aún no tienes una canción asignada para jugar. Por favor, solicita una.</p>
+<form th:action="@{/juego/cancion/solicitar}" method="post">
+  <button type="submit">Solicitar asignación</button>
+</form>
+</body>
+</html>

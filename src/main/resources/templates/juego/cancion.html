@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Juego de la Canción</title>
+</head>
+<body>
+<div sec:authorize="hasRole('USUARIO')" th:replace="~{fragments/navbar-user :: navbar-user}"></div>
+
+<h1>Adivina la Canción</h1>
+
+<div th:if="${asignacion}">
+    <h2>INFORMACIÓN:</h2>
+    <p>Letras: <span th:text="${asignacion.cancion.titulo.replace(' ', '').length()}"></span></p>
+    <p>Espacios: <span th:text="${asignacion.cancion.titulo.length() - asignacion.cancion.titulo.replace(' ', '').length()}"></span></p>
+    <pre>Patrón: <span th:text="${patron}"></span></pre>
+    <p>Longitud: <span th:text="${asignacion.cancion.titulo.length()}"></span> caracteres</p>
+</div>
+
+<div th:if="${resultado}">
+    <h2>RESULTADOS:</h2>
+    <p>Caracteres en posición correcta: <span th:text="${resultado.correct}"></span></p>
+    <p>Letras que están en el título: <span th:text="${resultado.matched}"></span></p>
+
+    <h2>COMPARACIÓN:</h2>
+    <pre>Intento: <span th:text="${resultado.intento}"></span></pre>
+    <pre>Match: <span th:text="${resultado.matchString}"></span></pre>
+
+    <p th:if="${resultado.acerto}" style="color:green;">Lo lograste, Adivinaste la canción en <span th:text="${asignacion.intentos}"></span> intentos.</p>
+</div>
+
+<form th:action="@{/juego/cancion/intentar}" method="post">
+    <label>Tu intento:</label>
+    <input type="text" name="intento"/>
+    <button type="submit">Adivinar</button>
+</form>
+
+<p>Intentos actuales: <span th:text="${asignacion.intentos}"></span></p>
+
+</body>
+</html>

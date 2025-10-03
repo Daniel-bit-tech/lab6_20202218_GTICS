@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Registrar Héroe</title>
+</head>
+<body>
+<div sec:authorize="hasRole('ADMIN')" th:replace="~{fragments/navbar-admin :: navbar-admin}"></div>
+
+<h1>Registrar Héroe Naval</h1>
+<form th:action="@{/heroes/save}" th:object="${heroe}" method="post">
+    <div>
+        <label>Nombre:</label>
+        <input type="text" th:field="*{nombre}"/>
+    </div>
+    <div>
+        <label>Rango:</label>
+        <input type="text" th:field="*{rango}"/>
+    </div>
+    <div>
+        <label>Fecha de Nacimiento:</label>
+        <input type="date" th:field="*{fechaNacimiento}"/>
+    </div>
+    <div>
+        <label>Reseña:</label>
+        <textarea th:field="*{descripcion}"></textarea>
+    </div>
+    <button type="submit">Guardar Héroe</button>
+</form>
+</body>
+</html>

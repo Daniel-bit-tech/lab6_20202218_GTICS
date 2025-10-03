@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Asignaciones Pendientes</title>
+</head>
+<body>
+<div sec:authorize="hasRole('ADMIN')" th:replace="~{fragments/navbar-admin :: navbar-admin}"></div>
+
+<h1>Asignaciones Pendientes</h1>
+<table border="1">
+    <thead>
+    <tr>
+        <th>Usuario</th>
+        <th>Fecha de Solicitud</th>
+        <th>Canción a Asignar</th>
+        <th>Acción</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="solicitud : ${solicitudes}">
+        <td th:text="${solicitud.usuario.nombre}"></td>
+        <td th:text="${solicitud.solicitud}"></td>
+        <td>
+            <form th:action="@{/admin/asignar}" method="post">
+                <input type="hidden" name="solicitudId" th:value="${solicitud.id}" />
+                <select name="cancionId">
+                    <option th:each="cancion : ${canciones}"
+                            th:value="${cancion.id}"
+                            th:text="${cancion.titulo}"></option>
+                </select>
+                <button type="submit">Asignar</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
