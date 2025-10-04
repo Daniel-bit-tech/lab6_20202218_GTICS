@@ -29,11 +29,10 @@ public class SecurityConfig {
                         .requestMatchers("/", "/heroes", "/login").permitAll()
 
 
-                        .requestMatchers("/intenciones", "/juego/cancion/**").hasRole("USUARIO")
+                        .requestMatchers("/juego/cancion/**", "/juego/ranking", "/juego/camino-dulces", "/juego/ranking-dulces").hasRole("USUARIO")
 
                         .requestMatchers("/intenciones/admin", "/heroes/registrar", "/heroes/save", "/admin/**").hasRole("ADMIN")
 
-                        .requestMatchers("/admin/ranking").hasRole("ADMIN")
 
                         .anyRequest().authenticated()
                 )

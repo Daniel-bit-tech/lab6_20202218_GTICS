@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Camino de Dulces</title>
+</head>
+<body>
+<div sec:authorize="hasRole('USUARIO')" th:replace="~{fragments/navbar-user :: navbar-user}"></div>
+
+<h1>Juego: Camino de Dulces</h1>
+
+<div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
+<div th:if="${mensaje}" class="alert alert-success" th:text="${mensaje}"></div>
+
+<div th:if="${numeroCasa != null}">
+    <div th:if="${numeroCasa.adivinado}">
+        <p> Ganaste en <span th:text="${numeroCasa.intentos}"></span> intentos</p>
+    </div>
+    <div th:unless="${numeroCasa.adivinado}">
+        <p>Intenta adivinar los pasos para llegar a la casa <span th:text="${numeroCasa.numeroObjetivo}"></span>.</p>
+        <p>Intentos: <span th:text="${numeroCasa.intentos}"></span></p>
+        <form th:action="@{/juego/adivinar}" method="post">
+            <label for="pasos">Número de pasos:</label>
+            <input type="number" id="pasos" name="pasos" min="1" required>
+            <button type="submit">Adivinar</button>
+        </form>
+    </div>
+</div>
+<div th:unless="${numeroCasa != null}">
+    <p>No tienes un número de casa asignado.</p>
+    <form th:action="@{/juego/solicitar}" method="post">
+        <button type="submit">Solicitar asignación</button>
+    </form>
+</div>
+</body>
+</html>

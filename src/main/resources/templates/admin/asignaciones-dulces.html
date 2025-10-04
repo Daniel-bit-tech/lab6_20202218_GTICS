@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Asignar Números de Casa</title>
+</head>
+<body>
+<div sec:authorize="hasRole('ADMIN')" th:replace="~{fragments/navbar-admin :: navbar-admin}"></div>
+<h1>Asignar Números de Casa</h1>
+<div th:if="${mensaje}" th:text="${mensaje}"></div>
+<table>
+    <thead>
+    <tr>
+        <th>Usuario</th>
+        <th>Número de Casa Actual</th>
+        <th>Acción</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="usuario : ${usuarios}">
+        <td th:text="${usuario.nombre}"></td>
+        <td>
+            <span th:if="${usuario.numerosCasa}" th:text="${usuario.numerosCasa.numeroObjetivo}"></span>
+            <span th:unless="${usuario.numerosCasa}">Sin asignar</span>
+        </td>
+        <td>
+            <form th:action="@{/admin/asignar-numero}" method="post">
+                <input type="hidden" name="usuarioId" th:value="${usuario.id}" />
+                <label for="numero">Número (>64):</label>
+                <input type="number" id="numero" name="numero" min="65" required />
+                <button type="submit">Asignar</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Mesas Disponibles</title>
+</head>
+<body>
+<div sec:authorize="hasRole('USUARIO')" th:replace="~{fragments/navbar-user :: navbar-user}"></div>
+<h1>Mesas para el Oktoberfest</h1>
+<div>
+    <span>Mesas Ocupadas: <span th:text="${mesasOcupadas}"></span></span>
+    <span>Mesas Libres: <span th:text="${mesasLibres}"></span></span>
+</div>
+
+<div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
+
+<table>
+    <thead>
+    <tr>
+        <th>Número de Mesa</th>
+        <th>Capacidad</th>
+        <th>Estado</th>
+        <th>Acción</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="mesa : ${mesas}">
+        <td th:text="${mesa.numero}"></td>
+        <td th:text="${mesa.capacidad}"></td>
+        <td th:text="${mesa.disponible ? 'Disponible' : 'Ocupada'}"></td>
+        <td>
+            <form th:action="@{/usuario/mesas/reservar}" method="post" th:if="${mesa.disponible}">
+                <input type="hidden" name="mesaId" th:value="${mesa.id}" />
+                <label for="numPersonas">Personas:</label>
+                <input type="number" id="numPersonas" name="numPersonas" min="1" th:max="${mesa.capacidad}" value="1" required />
+                <button type="submit">Reservar</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

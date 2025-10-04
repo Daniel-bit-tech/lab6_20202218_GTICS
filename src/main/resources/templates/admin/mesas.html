@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">>
+<head>
+    <meta charset="UTF-8">
+    <title>Administrar Mesas</title>
+</head>
+<body>
+<div sec:authorize="hasRole('ADMIN')" th:replace="~{fragments/navbar-admin :: navbar-admin}"></div>
+
+<h1>Administración de Mesas</h1>
+<div>
+    <span>Mesas Ocupadas: <span th:text="${mesasOcupadas}"></span></span>
+    <span>Mesas Libres: <span th:text="${mesasLibres}"></span></span>
+</div>
+
+<table>
+    <thead>
+    <tr>
+        <th>Número de Mesa</th>
+        <th>Capacidad</th>
+        <th>Estado</th>
+        <th>Acciones</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="mesa : ${mesas}">
+        <td th:text="${mesa.numero}"></td>
+        <td th:text="${mesa.capacidad}"></td>
+        <td th:text="${mesa.disponible ? 'Disponible' : 'Ocupada'}"></td>
+        <td>
+            <form th:action="@{/admin/mesas/liberar}" method="post" th:if="${!mesa.disponible}">
+                <input type="hidden" name="mesaId" th:value="${mesa.id}" />
+                <button type="submit">Liberar</button>
+            </form>
+            <form th:action="@{/admin/mesas/reasignar}" method="post">
+                <input type="hidden" name="mesaId" th:value="${mesa.id}" />
+                <input type="number" name="capacidad" min="1" max="4" th:value="${mesa.capacidad}" />
+                <button type="submit">Reasignar</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

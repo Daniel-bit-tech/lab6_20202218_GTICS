@@ -28,7 +28,36 @@ public class Usuario {
     @JoinColumn(name = "rol_id", nullable = false)
     private Rol rol;
 
+    @OneToOne(mappedBy = "usuario")
+    private Numeros_casa numerosCasa;
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public void setCorreo(String correo) {
+        this.correo = correo;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setRol(Rol rol) {
+        this.rol = rol;
+    }
+
+    public Numeros_casa getNumerosCasa() {
+        return numerosCasa;
+    }
+
+    public void setNumerosCasa(Numeros_casa numerosCasa) {
+        this.numerosCasa = numerosCasa;
+    }
 
     public Long getId() {
         return id;
